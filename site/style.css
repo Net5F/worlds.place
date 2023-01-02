@@ -1,0 +1,48 @@
+* { margin: 0; padding: 0; box-sizing: border-box;
+  
+  /* Color scheme */
+  --textcolor: #121212;
+  --bgcolor: #fff;
+  --highlight: #2749c9;
+
+}
+
+@media (prefers-color-scheme: dark) {
+  * {
+    --textcolor: #dadada;
+    --bgcolor: #1c1c27;
+    --highlight: #fff;
+  }
+}
+
+body {
+  font-size: 18px;
+  font-family: system-ui, sans-serif;
+  line-height: 1.4;
+  color: var(--textcolor);
+  background: var(--bgcolor);
+  position: relative;
+  max-width: 64em;  /* remove this for a full-width layout */
+  margin: 0 auto;  /* centers the layout */
+}
+
+/* ------- Header ------- */
+header {
+  padding: 5vh 5vw 0 5vw;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row-reverse;
+  position: absolute;
+  width: 100%;
+}
+
+nav {
+  display: flex;
+  gap: 1.5vw;
+}
+
+/* ------- General ------- */
+a {
+  color: var(--highlight);
+}
+

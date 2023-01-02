@@ -1,17 +1,8 @@
 Static site generator for worlds.place.
 
 # Notes
-## Hugo
-We use Hugo for our static site generation.
-
-### To edit or create pages
-Simply edit the markdown files in /content/posts
-
-### To generate or re-generate html from the markdown files
-```
-cd /root/worlds.place
-hugo -D -d /var/www/html
-```
+## Site
+We use vanilla html/css/js. Edit the pages, then copy them to `/var/www`.
 
 ## Firewall
 We use a UFW firewall with OpenSSL and Apache Full allowed.
