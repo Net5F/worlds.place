@@ -1,8 +1,6 @@
-Static site generator for worlds.place.
-
 # Notes
 ## Site
-We use vanilla html/css/js. Edit the pages, then copy them to `/var/www`.
+We use vanilla html/css.
 
 ## Firewall
 We use a UFW firewall with OpenSSL and Apache Full allowed.
@@ -21,6 +19,8 @@ ServerName worlds.place
 ServerAlias www.worlds.place
 ```
 `service apache2 reload`
+### Site Deployment
+Deploy pages to `/var/www/html/`.
 
 ## SSL Cert
 We use Certbot to auto-renew our Let's Encrypt SSL cert.
