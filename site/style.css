@@ -1,20 +1,11 @@
 * { margin: 0; padding: 0; box-sizing: border-box;
   
   /* Color scheme */
-  --textcolor: #121212;
-  --bgcolor: #fff;
-  --highlight: #2749c9;
+  --textcolor: #dadada;
+  --linkcolor: #58a6ff;
+  --bgcolor: #12121a;
+  --lightbgcolor: #232331;
 
-}
-
-@media (prefers-color-scheme: dark) {
-  * {
-    --textcolor: #dadada;
-    --navlinkcolor: #fff;
-    --mainlinkcolor: #0f82af;
-    --bgcolor: #1c1c27;
-    --highlight: #fff;
-  }
 }
 
 body {
@@ -26,43 +17,68 @@ body {
   position: relative;
   max-width: 64em;  /* remove this for a full-width layout */
   margin: 0 auto;  /* centers the layout */
+  padding-bottom: 5vh;
 }
 
-/* ------- Header ------- */
-header {
-  padding: 1.5vh 5vw 0 5vw;
-  display: flex;
-  flex-wrap: wrap;
-  position: relative;
-  width: 100%;
-}
-
-nav {
-  display: flex;
-  align-self: flex-end;
-  justify-content: center;
-  gap: 1.5vw;
-  margin: 0 auto;
-}
-
-nav strong {
+/* ------- Table of contents ------- */
+.tocH1 {
+  padding: 0 0 5px;
+  text-align: center;
   border-bottom: 1px solid;
+  color: #fff;
+}
+.tocH2 { 
+  padding: 0;
+  margin: 20px 0 0;
 }
 
-nav a {
-  text-decoration: none;
-  color: var(--navlinkcolor);
+/* ------- Platform selection ------- */
+.platformSelectH1 {
+  text-align: center;
+  margin: 0 0 30px 0;
+}
+.platformSelectP {
+  text-align: center;
+  margin: 0 0 10px 0;
+}
+.platformSelectA {
+  text-align: center;
+  display: block;
+  margin: 0 0 10px 0;
+}
+
+/* ------- Text-heavy pages (tutorials, blogs, tocs) ------- */
+.textHeavyPage {
+  max-width: 50em;
+  margin: 0 auto;
 }
 
 /* ------- General ------- */
 main {
-  padding: 5vh 5vw 0 5vw;
+  padding: 3vh 5vw 0 5vw;
   position: relative;
   width: 100%;
 }
 
-main > a {
-  color: var(--mainlinkcolor);
+a { color: var(--linkcolor); }
+
+p { margin: 0 0 5px 0; }
+
+h1 { padding: 0; }
+h2 { padding: 15px 0 0; }
+h3 { padding: 10px 0 0; }
+
+li { list-style-position: inside; }
+
+pre code {
+  display: block;
+  background: var(--lightbgcolor);
+  white-space: pre-wrap;
+  max-width: 100%;
+  min-width: 100px;
+  border: 1px;
+  padding: 5px 10px 5px 10px;
+  margin: 10px 0 10px 0;
 }
 
 /* ------- Smaller screens ------- */
