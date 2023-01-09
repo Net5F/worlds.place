@@ -31,11 +31,16 @@ body {
   padding: 0;
   margin: 20px 0 0;
 }
+.tocOl {
+  padding: 0;
+  margin: 0;
+  text-indent: 0;
+}
 
 /* ------- Platform selection ------- */
 .platformSelectH1 {
   text-align: center;
-  margin: 0 0 30px 0;
+  margin: 0 0 15px 0;
 }
 .platformSelectP {
   text-align: center;
@@ -68,17 +73,28 @@ h1 { padding: 0; }
 h2 { padding: 15px 0 0; }
 h3 { padding: 10px 0 0; }
 
+ol {
+  padding: 0 8px 5px;
+  text-indent: -18px;
+  margin-left: 18px;
+}
 li { list-style-position: inside; }
 
-pre code {
+pre > code {
   display: block;
   background: var(--lightbgcolor);
   white-space: pre-wrap;
   max-width: 100%;
   min-width: 100px;
-  border: 1px;
   padding: 5px 10px 5px 10px;
   margin: 10px 0 10px 0;
+  border-radius: 5px;
+}
+
+p > code {
+  background: var(--lightbgcolor);
+  border-radius: 5px;
+  padding: 0 3px 0 3px;
 }
 
 /* ------- Smaller screens ------- */

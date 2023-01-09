@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<title>Making It Portable (Packaging)</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="stylesheet" href="/style.css">
+
+<script src="/components/header.js"></script>
+<header-component selected="tutorials"></header-component>
+
+<main class="textHeavyPage">
+  <h1>Making It Portable (Packaging)</h1>
+
+  <p>Now that we've built the client and server, you might want to run them on other machines. For example, if you want to send the client to a friend, or copy the server to a rented cloud instance.
+  <p>To prepare for this, we'll need to package together the executable binaries, their dynamic dependencies, their assets (fonts, images), and a readme with some instructions. All of this is already set up, we only have to run a simple command.
+
+  <h2>1. Run the CMake install step</h2>
+  <p>We need to open a terminal where we can run a CMake command. On Linux you'll use your regular terminal, but on Windows the most convenient way is to use Visual Studio's built-in developer terminal ("Tools" &rarr; "Command Line" &rarr; "Developer Command Prompt").
+  <p>With your terminal navigated to the root project directory (the "Repose" directory), enter the following:
+  <p><em>Note: Replace "Windows" with "Linux" if you're on Linux.</em>
+  <pre><code>cmake --install Build/Windows/Release --prefix Packages/Windows</code></pre>
+  <p>Once it's done, you'll have your package ready to go in the Repose/Packages/Windows directory. Just zip up whichever folders you want and share them around!
+</main>

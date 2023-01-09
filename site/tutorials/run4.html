@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<title>Allowing Others To Connect To Your Server</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="stylesheet" href="/style.css">
+
+<script src="/components/header.js"></script>
+<header-component selected="tutorials"></header-component>
+
+<main class="textHeavyPage">
+  <h1>Allowing Others To Connect To Your Server</h1>
+
+  <h2>Hosting the server</h2>
+  <p>You have two options when it comes to hosting your server:
+  <ol>
+    <li>Rent a cloud instance to host it on.
+    <li>Host it on your own machine.
+  </ol>
+  <p>If you choose to host it on a cloud instance, you likely know what you're doing. Just copy the server package over and, if on Linux, install SDL2. Then, you can share the IP address and others will be able to connect.
+  <p>If you choose to host it on your own machine, you'll likely have to forward a port in your router settings. This is a common process when self-hosting a game server, so feel free to google "port forward guide".
+  <p>To find which port you need to forward, look for the SERVER_PORT variable in Repose/Source/ConfigOverrides/Override/ServerConfig.h (default: 41499).
+
+  <h2>Changing the client's target IP</h2>
+  <p>Our client needs to know the server's IP address. By default, it's set to the local host (that's why it works when you're running the server locally).
+  <p>We can change it by opening "UserConfig.json" in the packaged "Client" directory and setting "serverIP" to your server's IP. You should be sure to do this before sending the packaged client to anyone, so that they only have to open the client and press "Connect".
+  <p>If you're hosting the server on your own machine and don't know your public IP address, you can just google "what's my IP".
+</main>

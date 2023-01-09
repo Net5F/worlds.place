@@ -1,6 +1,6 @@
 # Notes
 ## Site
-We use vanilla html/css and edit/duplicate files as necessary. Optional html is omitted when possible, using [this list as a reference.](https://meiert.com/en/blog/optional-html/)
+We use vanilla html/css. Optional html is omitted when possible, using [this list as a reference.](https://meiert.com/en/blog/optional-html/) Javascript is only used for making custom elements. 
 
 ## Firewall
 We use a UFW firewall with OpenSSL and Apache Full allowed.
