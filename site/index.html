@@ -1,5 +1,12 @@
-<!DOCTYPE html>
-<title>The Amalgam Engine Home</title>
-<link rel="stylesheet" href="style.css">
+<title>Amalgam Engine Home</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="stylesheet" href="/style.css">
+<script src="changeImage.js" async></script>
 
-<a href="home.html">Click Me</a>
+<main>
+  <img id="enter1" class="indexImg" src="/images/Enter1.png" width=770 height=768 alt="A cute ghost on a small patch of grass." onclick="changeImage('enter1', 'enter2')"/>
+  <img id="enter2" class="indexImg" src="/images/Enter2.png" width=770 height=768 alt="A cute ghost in an empty field."  style="display: none" onclick="changeImage('enter2', 'enter3')"/>
+  <a href="/home.html">
+    <img id="enter3" class="indexImg" src="/images/Enter3.png" width=770 height=768 alt="A bunch of cute ghosts hanging out in a flowery field." style="display: none"/>
+  </a>
+</main>

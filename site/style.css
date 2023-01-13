@@ -20,6 +20,15 @@ body {
   padding-bottom: 5vh;
 }
 
+/* ------- Index ------- */
+.indexImg {
+  display: block;
+  margin: 0 auto;
+  cursor: pointer;
+  max-width: 100%;
+  height: auto;
+}
+
 /* ------- Table of contents ------- */
 .tocH1 {
   padding: 0 0 5px;
@@ -69,7 +78,7 @@ a { color: var(--linkcolor); }
 
 p { margin: 0 0 5px 0; }
 
-h1 { padding: 0; }
+h1 { padding: 0 0 5px 0; }
 h2 { padding: 15px 0 0; }
 h3 { padding: 10px 0 0; }
 
