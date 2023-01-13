@@ -27,3 +27,12 @@ We use Certbot to auto-renew our Let's Encrypt SSL cert.
 
 https://www.digitalocean.com/community/tutorials/how-to-secure-apache-with-let-s-encrypt-on-ubuntu-20-04
 
+It sets up a systemd timer for renewal. To check if it's running: 
+```
+systemctl list-timers | grep certbot
+```
+
+To test if the next run will work:
+```
+certbot renew --dry-run
+```
