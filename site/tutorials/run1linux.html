@@ -6,16 +6,33 @@
 <script src="/components/header.js"></script>
 <header-component selected="tutorials"></header-component>
 
-<main>
+<main class="textHeavyPage">
   <h1>Building And Running Locally</h1>
-  <h3>Installing the dependency packages</h3>
+  <p><em>Note: These instructions will be for Ubuntu, but they should work the same on other distros. Just replace the apt calls with your repo's package manager.</em>
+  <h2>1. Cloning the project repo</h2>
+  <p>First, we want to download the project's files. We'll do this using a program called <em>git</em>.
+  <br>If you don't have git installed, open a terminal, then enter the following:
+  <pre><code>sudo apt install git</code></pre>
+  <p>Then, navigate to where you want the project files to be downloaded and enter:
+  <pre><code>git clone git@github.com:Net5F/Repose.git --recurse-submodules</code></pre>
+  <p>This will create a "Repose" directory and fill it with the project's files.
 
-  <h3>Downloading the project code</h3>
-  <p> Hello
+  <h2>3. Downloading the toolchain and dependencies</h2>
+  <p>To build the project, we'll need to download some additional packages (this is all one long line):
+  <pre><code>sudo apt install g++ cmake libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-ttf-dev libsdl2-gfx-dev libgtk-3-dev ninja-build</code></pre>
 
-  <h3>Building the project</h3>
-  <p> Hello
+  <h2>4. Building the project</h2>
+  <p>Now, we're ready to build! In the root "Repose" directory, make a build directory and navigate to it:
+  <pre><code>mkdir -p Build/Linux/Release && cd Build/Linux/Release</code></pre>
+  <p>Then, run the CMake configure step:
+  <pre><code>cmake -DCMAKE_BUILD_TYPE=Release -G Ninja ../../../</pre></code>
+  <p><em>Note: If the command says your CMake version is too old, you can run the script at Libraries/AmalgamEngine/Scripts/Linux/GetRequiredCmake.sh (or use it as an example of how to install a newer CMake version).</em>
+  <p>Finally, we can run the build:
+  <pre><code>ninja all</code></pre>
 
-  <h3>Running the server and client</h3>
-  <p> Hello
+  <h2>4. Running the server and client</h2>
+  <p>After the build step is complete, we can go look for our executables.
+  <p>Open the Repose/Build/Linux/Release/Source directory and you should see Client and Server directories.
+  <p>Open another terminal. In one, open the Server directory and run the Server binary. In the other, open the Client directory and run the Client binary. You now should be able to press the "Connect" button in the client to connect to your server.
+  <p>Congratulations! You're now in full control of your own virtual world.
 </main>
