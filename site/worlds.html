@@ -2,6 +2,33 @@
 <title>Amalgam Engine Worlds</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="worldsAnimations.css">
 
 <script src="/components/header.js"></script>
 <header-component selected="worlds"></header-component>
+
+<script src="worldsAnimations.js" async></script>
+<main>
+  <h1 class="tocH1">Amalgam Engine Worlds</h1>
+  <p>Explore this page to find worlds built by the Amalgam Engine community.
+
+  <!-- Repose -->
+  <div class="worldsContainer">
+    <img id="worldsReposeGhost" class="worldsCharacterImg" src="/images/ReposeGhost.png" width=59 height=83 alt="A cute ghost. When clicked, it floats away and disappears." onclick="animateWorldsReposeCard()"/>
+
+    <div id="worldsReposeCard" class="worldsCard">
+      <img src="images/ReposeSmall.png" width=501 height=282 alt="Three players exploring the World of Repose."/>
+
+      <div class="worldsCardInner">
+        <h2>The World of Repose</h2>
+        <p>A world of constant change.
+	<p>Explore an ever-shifting maze to get a taste of what the Amalgam Engine is capable of.
+
+	<div class="worldsCardButtons">
+          <a href="http://www.example.com">Download Client</a>
+          <a href="https://github.com/Net5F/Repose.git">Visit Website</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

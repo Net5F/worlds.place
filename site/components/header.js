@@ -47,11 +47,11 @@ headerTemplate.innerHTML = `
   <header>
     <nav>
       <ul>
-        <li><a href="/home.html" id="home">Home</a>
-        <li><a href="/worlds.html" id="worlds">Worlds</a>
-        <li><a href="/tutorials.html" id="tutorials">Tutorials</a>
-        <li><a href="/roadmap.html" id="roadmap">Roadmap</a>
-        <li><a href="/blog.html" id="blog">Blog</a>
+        <li><a id="home" href="/home.html">Home</a>
+        <li><a id="worlds" href="/worlds.html">Worlds</a>
+        <li><a id="tutorials" href="/tutorials.html">Tutorials</a>
+        <li><a id="roadmap" href="/roadmap.html">Roadmap</a>
+        <li><a id="blog" href="/blog.html">Blog</a>
       </ul>
     </nav>
   </header>

@@ -1,0 +1,33 @@
+/* Repose */
+#worldsReposeGhost {
+  animation: worldsReposeGhostMove 2s linear;
+  animation-fill-mode: forwards;
+  animation-play-state: paused;
+}
+@keyframes worldsReposeGhostMove {
+  30% {
+    transform: translate(100px, 40px) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(200px, 80px) scale(1.5);
+    opacity: 0;
+  }
+}
+
+#worldsReposeCard {
+  animation: worldsReposeCardShow 1s 2s linear;
+  animation-fill-mode: forwards;
+  animation-play-state: paused;
+  visibility: hidden;
+}
+@keyframes worldsReposeCardShow {
+  0% {
+    opacity: 0;
+    visibility: visible;
+  }
+  100% {
+    opacity: 1;
+    visibility: visible;
+  }
+}
