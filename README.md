@@ -12,7 +12,7 @@ We use Apache as our web server.
 ### Setup
 https://ubuntu.com/tutorials/install-and-configure-apache#2-installing-apache
 
-By default, config is in `/etc/apache2/sites-enabled/000-default.conf` and `000-default-le-ssl.conf` in the same directory. `000-default` is for http, `000-default-le-ssl` is for https. Make sure to update both.
+By default, config is in `/etc/apache2/sites-enabled/000-default.conf` and `/etc/apache2/sites-enabled/000-default-le-ssl.conf`. `000-default` is for http, `000-default-le-ssl` is for https. Make sure to update both.
 
 Modified config fields:
 ```
