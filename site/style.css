@@ -20,6 +20,24 @@ body {
   padding-bottom: 5vh;
 }
 
+/* ------- Home ------- */
+.homeH1 {
+  display: inline-block;
+  margin: 0 auto 10px auto;
+  padding: 0 0 5px 0;
+  text-align: center;
+  color: #fff;
+  border-bottom: 1px solid;
+}
+.homeH1Container { text-align: center; }
+
+.homeImg {
+  width: 100%;
+  height: auto;
+  margin: 0 20px 0 0;
+  /*opacity: 60%;*/
+}
+
 /* ------- Index ------- */
 .indexImg {
   display: block;
@@ -58,7 +76,10 @@ body {
   display: flex;
   flex-direction: column;
 }
-.worldsCardInner h2 { padding: 0; }
+.worldsCardInner h2 {
+  padding: 0;
+  margin: 5px 0 0;
+}
 .worldsCardInner p { margin: 0 0 10px 0; }
 
 .worldsCardButtons {
@@ -166,9 +187,9 @@ a { color: var(--linkcolor); }
 
 p { margin: 0 0 15px 0; }
 
-h1 { padding: 0 0 5px 0; }
-h2 { padding: 15px 0 0; }
-h3 { padding: 10px 0 0; }
+h1 { margin: 0 0 10px 0; }
+h2 { margin: 15px 0 0; }
+h3 { margin: 10px 0 0; }
 
 ol, ul {
   margin: 0 0 15px;
@@ -210,6 +231,5 @@ p > code {
   ul { padding: 0 0 0 18px; }
 
   .worldsCard { flex-wrap: wrap; }
-  .worldsCard h2 { margin: 5px 0 0; }
 }
 
