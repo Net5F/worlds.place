@@ -12,15 +12,22 @@ We use Apache as our web server.
 ### Setup
 https://ubuntu.com/tutorials/install-and-configure-apache#2-installing-apache
 
-Modified fields in 000-default.conf:
+By default, config is in `/etc/apache2/sites-enabled/000-default.conf` and `000-default-le-ssl.conf` in the same directory. `000-default` is for http, `000-default-le-ssl` is for https. Make sure to update both.
+
+Modified config fields:
 ```
 ServerAdmin the.net.persists@gmail.com
 ServerName worlds.place
 ServerAlias www.worlds.place
+ErrorDocument 404 /404.html
+ErrorDocument 500 /50x.html
+ErrorDocument 502 /50x.html
+ErrorDocument 503 /50x.html
+ErrorDocument 504 /50x.html
 ```
-`service apache2 reload`
+`service apache2 restart`
 ### Site Deployment
-Deploy pages to `/var/www/html/`.
+Deploy pages to `/var/www/html/`
 
 ## SSL Cert
 We use Certbot to auto-renew our Let's Encrypt SSL cert.
