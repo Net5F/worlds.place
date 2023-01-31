@@ -12,7 +12,11 @@
 <main class="textHeavyPage">
   <h1 class="tocH1">Amalgam Engine Roadmap</h1>
   <p>A list of features that the engine will provide. Once they're all finished, the engine will be complete. Any further features will be provided as submodules instead of being integrated into the engine.
-  <p>Color code:
+
+  <p><a href="https://discord.gg/EA2Sg3ar74">Join the Discord</a>
+  <p><a href="https://github.com/Net5F/AmalgamEngine">Visit the Github repository</a>
+
+  <p style="margin-bottom: 0;">Color code:
   <ul>
     <li>Not started
     <li class="startedLi">Started
@@ -24,60 +28,117 @@
   <ul>
     <li class="completeLi">Project structure
     <li class="completeLi">CMake structure
+    <li class="completeLi">Engine/Project split (used to be a single repo)
+    <li class="completeLi">Packaging (CMake install step)
+    <li class="completeLi">Project extensions for engine modules, engine hook architecture
+    <li class="completeLi">Logging
+    <li class="completeLi">Profiling (Tracy)
+    <li class="completeLi">Simulated client (for load testing)
   </ul>
 
   <h2 class="tocH2">Networking</h2>
   <ul>
     <li class="completeLi">Basic networking (message framing, serialization, simple movement)
     <li class="completeLi">Advanced networking (authoritative server, prediction, tick adjustments)
-    <li class="completeLi">Ease-of-use improvement
+    <li class="completeLi">Thread-safe message queue library
+    <li class="completeLi">Message creation ease-of-use improvements
     <li class="completeLi">Data compression
+    <li class="completeLi">Network to Simulation data flow design
   </ul>
 
   <h2 class="tocH2">Simulation</h2>
   <ul>
-    <li class="completeLi">
+    <li class="completeLi">Movement
+    <li class="completeLi">Basic collision
+    <li class="completeLi">Loading sprite file, loading textures into asset cache
+    <li class="completeLi">Simulation to UI and Network data flow design
+    <li class="completeLi">Entity locator (spatial partitioning grid)
+    <li class="completeLi">Client entity management
+    <li class="completeLi">Area of interest system (track what entities are within range of a given entity)
+    <li>Static/dynamic objects, object interactions (including solution for adding logic to an object)
+    <li>Items, inventory
+    <li>Hardcoded role for each sprite layer (floor layer, wall layer, etc), optimize systems/tools for their relevant layers
+    <li>NPCs (including solution for adding behavior to an NPC)
+    <li>User-assignable key binding
   </ul>
 
   <h2 class="tocH2">Tile Map</h2>
   <ul>
-    <li class="completeLi">
+    <li class="completeLi">In-memory structure
+    <li class="completeLi">File format
+    <li class="completeLi">Loading, saving
+    <li class="completeLi">Live chunk streaming
+    <li class="completeLi">Live tile updating
+    <li>Multi-story world (either 3D tile map, or separate "building" objects)
+    <li>Client-side chunk caching
   </ul>
 
   <h2 class="tocH2">Build Mode</h2>
   <ul>
-    <li class="completeLi">
+    <li class="completeLi">Basic build mode (tile placement, layer selection)
+    <li class="completeLi">UI, data flow
+    <li>Click on sprite to select the tile it's in (instead of having to click directly on the tile)
+    <li>Wall tool, floor tool, room tool
+    <li>Place "Objects" instead of "Sprites" (contains all of the sprites for a single object)
+    <li>Object search
   </ul>
 
   <h2 class="tocH2">User Interface</h2>
   <ul>
-    <li class="completeLi">
+    <li class="completeLi">Basic classes (Component, Window with component tree, Screen with window tree)
+    <li class="completeLi">Event routing
+    <li class="completeLi">Window logic
+    <li class="completeLi">Spatial partitioning grid for hit detection acceleration
+    <li class="completeLi">Basic components (Text, Button, etc)
+    <li class="completeLi">UI to Simulation data flow design
+    <li>Layout anchors (components can set an anchor or have no anchor)
+    <li>Component size scaling options (scale size vs keep size when resolution is different than virtual resolution)
+    <li>Multi-line text component
+    <li>9-slice component
+    <li>Draggable windows
+    <li>Resizable windows (optional flag)
   </ul>
 
   <h2 class="tocH2">Sprite Editor</h2>
   <ul>
-    <li class="completeLi">
-  </ul>
-
-  <h2 class="tocH2">Audio</h2>
-  <ul>
-    <li>
-  </ul>
-
-  <h2 class="tocH2">Text Chat</h2>
-  <ul>
-    <li>
-  </ul>
-
-  <h2 class="tocH2">User accounts</h2>
-  <ul>
-    <li>
+    <li class="completeLi">Basic UI, sprite sheet importing, sprite array
+    <li class="completeLi">File saving, loading
+    <li class="completeLi">Sprite stage, properties window
+    <li class="completeLi">Bounding box gizmo
+    <li>Assign multiple (different facing) sprites to a single object
+    <li>Sprite tags (floor, wall, character, etc)
+    <li>Property painting
+    <li>Sheet/sprite/object organization refactor (more like Flash's library UI?)
   </ul>
 
   <h2 class="tocH2">Graphics</h2>
   <ul>
     <li class="completeLi">Placeholder 2D graphics
     <li class="completeLi">Isometric graphics
-    <li class="completeLi">Smooth zooming
+    <li class="completeLi">Camera system
+    <li>Smooth zooming
+    <li>Animation
+    <li>Clothing system
+    <li>Large sprite support (larger than 1 tile)
+  </ul>
+
+  <h2 class="tocH2">Audio</h2>
+  <ul>
+    <li>Music (single hardcoded file)
+    <li>Music track selection interface
+    <li>Sound effect interface, process for attaching sound effects to things and playing them
+  </ul>
+
+  <h2 class="tocH2">Text Chat</h2>
+  <ul>
+    <li>Chat server, messages
+    <li>Client UI
+  </ul>
+
+  <h2 class="tocH2">User accounts</h2>
+  <ul>
+    <li>Account server, account database
+    <li>Web API for account creation, deletion, logging in, forwarding to simulation server
+    <li>Basic account registration website template (html/css/js)
   </ul>
 </main>
