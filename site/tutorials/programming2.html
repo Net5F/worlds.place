@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<title>Adding a Simulation system</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="stylesheet" href="/style.css">
+
+<script src="/components/header.js"></script>
+<header-component selected="tutorials"></header-component>
+
+<main class="textHeavyPage">
+  <h1>Adding a Simulation system</h1>
+
+  <p>Don't worry if you don't fully understand all the terms from the previous tutorial, the important part is that you've seen them once so you can start building a picture in your head. Now, let's see what it's like to add a new system to a project!
+
+  <h2>1. Creating the new system's files</h2>
+  <p>We'll need a header file and source file to hold our new system. The easy way to get these is to just copy some existing files. In Repose, for example, we can go to the Source/Server/Simulation directory and copy+paste Public/TeleportSystem.h and Private/TeleportSystem.cpp. Name the new files TestSystem.h and TestSystem.cpp.
+  <p>We also need to tell the build system that the new files exist. Open CMakeLists.txt from the same Simulation directory, and add the files to the list. For example:
+  <pre><code>target_sources(Server
+    PRIVATE
+        (other files...)
+        Private/TestSystem.cpp
+    PUBLIC
+        (other files...)
+        Public/TestSystem.h
+)</pre></code>
+
+  <h2>2. Adding logic to the new system</h2>
+  <p>Starting in TestSystem.h, we're going to rename the class and rip out the stuff we don't need. We're also going to add a <code>Timer</code>, which we'll use in the .cpp:
+  <pre><code>#pragma once
+
+#include "Timer.h"
+
+namespace AM::Server
+{
+
+// Forward declaration
+class World;
+
+class TestSystem
+{
+public:
+    TestSystem(World&amp; inWorld);
+
+    void runCode();
+
+private:
+    World&amp; world;
+
+    Timer timer;
+};
+
+} // End namespace AM::Server</pre></code>
+
+  <p>In TestSystem.cpp, we're going to set everything up except for <code>runCode()</code>, then I'll explain what's going on:
+  <pre><code>#include "TestSystem.h"
+#include "World.h"
+#include "Position.h"
+
+namespace AM::Server
+{
+
+TestSystem::TestSystem(World&amp; inWorld)
+: world{inWorld}
+, timer{}
+{
+    timer.updateSavedTime();
+}
+
+void TestSystem::runCode()
+{
+}
+
+} // End namespace AM::Server</pre></code>
+
+  <p>At the top are our includes. Along with the new class, we've included our <code>World</code> dependency (we'll talk more about dependencies later), and a <code>Position</code> component that we're going to use.
+  <br>Below the includes, we have our function, and a constructor that initializes the timer.
+  <p>Inside the function, we're going to do something fun: every 5 seconds, we're going to iterate through every entity, determine what tile they're standing on, and replace that tile's floor sprite. Here's what it looks like, go ahead and take some time to get familiar with it:
+  <pre><code>void TestSystem::runCode()
+{
+    // If the timer has been running for 5 seconds.
+    if (timer.getDeltaSeconds(false) &gt;= 5) {
+        // Iterate through every entity that has a Position component.
+        auto view{world.registry.view&lt;Position&gt;()};
+        for (entt::entity entity : view) {
+            // Get this entity's position component.
+            Position&amp; position{view.get&lt;Position&gt;(entity)};
+
+            // Replace the floor sprite (layer 0) of the tile that the entity 
+	    // is standing on.
+	    // Note: We need a sprite to use, so I randomly chose the sprite with 
+	    //       ID == 1.
+            TilePosition tilePosition{position.asTilePosition()};
+            std::size_t layerIndex{0};
+            int spriteNumericID{1};
+            world.tileMap.setTileSpriteLayer(tilePosition.x, tilePosition.y,
+                                             layerIndex, spriteNumericID);
+        }
+
+        // Reset the timer.
+        timer.updateSavedTime();
+    }
+}</pre></code>
+
+  <p>From this example, you can infer some things that you might not have known about the engine:
+  <ol>
+    <li>The map is tile-based.
+    <li>Each tile contains multiple sprites, organized into layers.
+    <li>Sprites are identified by their numeric ID (they actually also have string IDs and display names that we sometimes use).
+    <li>Calling <code>setTileSpriteLayer()</code> was enough to get update messages sent to the clients (we didn't need to explicitly send a map update to everyone). This is the case for tile map updates and entity movement, but other things may require your system to send its own messages. We'll cover that in a later tutorial.
+  </ol>
+
+  <h2>3. Adding the system to an extension class</h2>
+  <p>If you recall, the "module extension classes" are what let us tell the engine to run our code. Let's add our new system to an extension class. Open SimulationExtension.h (still in the Source/Server/Simulation directory).
+  <p>At the top of this file, you'll see a place where we include the existing systems. Add our system to the list:
+  <pre><code>#include "ISimulationExtension.h"
+#include "SimulationExDependencies.h"
+(other systems...)
+#include "TestSystem.h"</pre></code>
+
+  <p>At the bottom, you'll see a place where we add the systems as members of the SimulationExtension class. Add our system there, too:
+  <pre><code>private:
+    (other systems...)
+    TestSystem testSystem;</pre></code>
+
+  <p>In the middle of this file, you'll see all of the hooks&mdash;functions where systems can be called. Read through the comments if you'd like, then open SimulationExtension.cpp.
+
+  <p>Our new system isn't very dependent on where it's placed within the simulation loop, so we're just going to add it to <code>beforeAll()</code>. We're also going to add our new system to the constructor's initializer list:
+  <pre><code>SimulationExtension::SimulationExtension(SimulationExDependencies deps)
+(other systems...)
+, testSystem{deps.world}
+{
+}
+
+void SimulationExtension::beforeAll() {
+    testSystem.runCode();
+}</code></pre>
+
+  <p>Adding <code>testSystem.runCode()</code> to <code>beforeAll()</code> means that it will now be called once per Simulation tick.
+  <p>Note that we're passing <code>deps.world</code> to <code>TestSystem</code> here. The <code>World</code> class is just one of the dependencies that the engine provides us with. To see what else is available, you can look at SimulationExDependencies.h (be sure to look at the Server version, Client also has a SimulationExDependencies).
+  <br>Each module has an ExDependencies class like this. When you're thinking up how to implement something, check out these headers to see what tools are at your disposal!
+
+  <h2>4. Running our new system</h2>
+  <p>Now, we just build the project and run it as before (launch the server, then the client). If all goes well, you should see a sprite appearing under your character every 5 seconds!
+  <p>At this point, you're expected to be a bit confused about how exactly <code>beforeAll()</code> fits into the rest of the engine logic. Don't worry, we'll cover that in the next tutorial!
+</main>

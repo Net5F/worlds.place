@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<title>Understanding the Simulation loop</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="stylesheet" href="/style.css">
+
+<script src="/components/header.js"></script>
+<header-component selected="tutorials"></header-component>
+
+<main class="textHeavyPage">
+  <h1>Understanding the Simulation loop</h1>
+
+  <p>An easy tutorial this time, we're just going to be looking at the Simulation loop and seeing how our project code fits in.
+
+  <h2>1. Understanding the engine code structure</h2>
+  <p>Let's look at some engine code! The engine is a submodule, so it's super easy to dip into. Go to Libraries/AmalgamEngine/Source and look around for a second. Notice how it's structured pretty much the same as the project code (except Client and Server are now ClientLib and ServerLib).
+  <p>When you're done exploring, open ServerLib/Simulation/Private/Simulation.cpp.
+
+  <h2>2. Understanding the Simulation's tick()</h2>
+  <p>Here's where it all comes together: check out the first thing in <code>tick()</code>:
+  <pre><code>// Call the project's pre-everything logic.
+if (extension != nullptr) {
+    extension-&gt;beforeAll();
+}</code></pre>
+
+  <p>This is where our <code>beforeAll()</code> is called! In fact, if you go back and reference SimulationExtension.h, you can read the hook function comments and see exactly where each hook is called in the loop.
+  <p>When you have an idea for a new system, it's often necessary to think about where it should be called. Does it affect movement? It might need to happen after <code>processMovements()</code>. Does it update the tile map? It should probably be called before <code>sendTileUpdates()</code>. Looking at how the engine works can also give you ideas for how to implement new features, so take some time to look through the engine system calls.
+</main>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<title>Introduction to the codebase</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="stylesheet" href="/style.css">
+
+<script src="/components/header.js"></script>
+<header-component selected="tutorials"></header-component>
+
+<main class="textHeavyPage">
+  <h1>Introduction to the codebase</h1>
+
+  <p>Welcome to the code! We're going to take a quick look at how things are organized, then in the next tutorial we'll use that knowledge to write a simple system.
+
+  <h2>1. Understanding the project structure</h2>
+  <p>We could jump straight into writing a system, but learning these four simple concepts will help us frame what we're doing:
+  <ol>
+    <li>Engine/Project
+    <li>Client/Server
+    <li>Modules
+    <li>Module Extensions
+  </ol>
+
+  <h3>Engine/Project</h3>
+  <p>When we look at <a href="https://github.com/Net5F/Repose">a repo like Repose</a>, we're looking at a "project". Projects run on top of <a href="https://github.com/Net5F/AmalgamEngine">the "engine"</a>. The relationship is as you'd expect: the engine provides as much generic code as it can, and the project holds your specific code and art assets.
+
+  <h3>Client/Server</h3>
+  <p>The engine and project both split their code into "Client" and "Server". You'll often see similar classes in both, which represent the two sides of our networked system (e.g. the Client's <code>ChunkUpdateSystem</code> communicates with the Server's <code>ChunkStreamingSystem</code>).
+
+  <h3>Modules</h3>
+  <p>Modules are just a way for us to organize code. The Server has 2 modules: Simulation, and Network. The Client has Simulation, Network, Renderer and UserInterface.
+
+  <h3>Module Extension Classes</h3>
+  <p>As a project developer, you need places where you can add code to each of the engine's modules. These places are called "extension classes" <a href="https://github.com/Net5F/Repose/blob/master/Source/Client/Simulation/Public/SimulationExtension.h">(e.g. SimulationExtension)</a>.
+  <br>The extension classes provide empty functions that let you add your code into different parts of the engine. They also provide a set of "dependencies" that your code can call to affect the world.
+  <p>These concepts are powerful, and are what makes The Amalgam Engine so straightforward to learn. There's a defined place for your code to go, and a small set of dependencies to learn how to use.
+  <br>This is a good time to look around the codebase and see if you can recognize these patterns in the actual project. When you're ready, check out the next tutorial where we'll build a new system!
+</main>

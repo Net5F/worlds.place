@@ -28,7 +28,6 @@ body {
   color: #fff;
 }
 .homeH1Container { text-align: center; }
-.homeH2 { margin: 25px 0 0 0; }
 
 .homeImg {
   width: 100%;
@@ -204,8 +203,8 @@ a { color: var(--linkcolor); }
 p { margin: 0 0 15px 0; }
 
 h1 { margin: 0 0 10px 0; }
-h2 { margin: 15px 0 0; }
-h3 { margin: 10px 0 0; }
+h2 { margin: 25px 0 0; }
+h3 { margin: 10px 0 5px 0; }
 
 ol, ul {
   margin: 0 0 15px;
@@ -227,15 +226,17 @@ pre > code {
   white-space: pre-wrap;
   max-width: 100%;
   min-width: 100px;
-  padding: 5px 10px 5px 10px;
+  padding: 10px 10px 10px 10px;
   margin: 15px 0 15px 0;
   border-radius: 5px;
+  overflow: auto;
+  white-space: pre;
 }
 
 p > code {
   background: var(--lightbgcolor);
   border-radius: 5px;
-  padding: 0 3px 0 3px;
+  padding: 0 5px 0 5px;
 }
 
 /* ------- Smaller screens ------- */
