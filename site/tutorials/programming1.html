@@ -24,7 +24,7 @@
   <p>When we look at <a href="https://github.com/Net5F/Repose">a repo like Repose</a>, we're looking at a "project". Projects run on top of <a href="https://github.com/Net5F/AmalgamEngine">the "engine"</a>. The relationship is as you'd expect: the engine provides as much generic code as it can, and the project holds your specific code and art assets.
 
   <h3>Client/Server</h3>
-  <p>The engine and project both split their code into "Client" and "Server". You'll often see similar classes in both, which represent the two sides of our networked system (e.g. the Client's <code>ChunkUpdateSystem</code> communicates with the Server's <code>ChunkStreamingSystem</code>).
+  <p>The engine and project both split their code into "Client" and "Server". You'll often see similar classes in both, which represent the two sides of our networked system. For example, the Client and Server both have a <code>Simulation</code> class. They're both responsible for managing the world state, but the Server's <code>Simulation</code> is the "real, authoritative" state, and the Client's is just a replication. 
 
   <h3>Modules</h3>
   <p>Modules are just a way for us to organize code. The Server has 2 modules: Simulation, and Network. The Client has Simulation, Network, Renderer and UserInterface.
