@@ -22,7 +22,6 @@ body {
 
 /* ------- Home ------- */
 .homeH1 {
-  display: inline-block;
   margin: 0 auto 15px auto;
   text-align: center;
   color: #fff;
@@ -62,7 +61,7 @@ body {
   height: auto;
 }
 
-/* ------- Worlds page ------- */
+/* ------- Worlds ------- */
 .worldsContainer {
   margin: 25px 0 40px 0;
 }
