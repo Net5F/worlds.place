@@ -1,5 +1,7 @@
 <!DOCTYPE html>
+<html lang="en">
 <title>Understanding the Simulation loop</title>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="stylesheet" href="/style.css">
 
@@ -25,3 +27,4 @@ if (extension != nullptr) {
   <p>This is where our <code>beforeAll()</code> is called! In fact, if you go back and look at SimulationExtension.h, you can read the hook function comments and see exactly where each hook is called in the loop.
   <p>When you have an idea for a new system, it's often necessary to think about where it should be called. Does it affect movement? It might need to happen after <code>processMovements()</code>. Does it update the tile map? It should probably be called before <code>sendTileUpdates()</code>. Looking at how the engine works can also give you ideas for how to implement new features, so take some time to look through the engine system calls.
 </main>
+</html>
