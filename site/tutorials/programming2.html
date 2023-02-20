@@ -9,11 +9,13 @@
 <main class="textHeavyPage">
   <h1>Adding a Simulation system</h1>
 
-  <p>Don't worry if you don't fully understand all the terms from the previous tutorial, the important part is that you've seen them once so you can start building a picture in your head. Now, let's see what it's like to add a new system to a project!
+  <p>Don't worry if you don't fully understand all the terms from the previous tutorial, you'll gain familiarity as we get more hands-on.
+  <br>In this tutorial, we're going to add a system to the Server's Simulation. Our system is going to be pretty simple: every few seconds, it's going to replace the floor sprite that each entity is standing on with a sprite of our choosing. This will let us dip our toes into modifying the tile map, and interacting with the entity data!
 
   <h2>1. Creating the new system's files</h2>
-  <p>We'll need a header file and source file to hold our new system. The easy way to get these is to just copy some existing files. In Repose, for example, we can go to the Source/Server/Simulation directory and copy+paste Public/TeleportSystem.h and Private/TeleportSystem.cpp. Name the new files TestSystem.h and TestSystem.cpp.
-  <p>We also need to tell the build system that the new files exist. Open CMakeLists.txt from the same Simulation directory, and add the files to the list. For example:
+  <p>The easiest way to start a new system is to copy an existing one. In our project, we can see all the Server Simulation systems by looking in the Source/Server/Simulation directory. Take this opportunity to look through the existing systems and see what they all do.
+  <br><code>TeleportSystem</code> happens to be the closest to what we're going to build, so copy+paste TeleportSystem.h and TeleportSystem.cpp to duplicate them, then name the new files TestSystem.h and TestSystem.cpp.
+  <p>Any time we add files, we need to tell the build system that the new files exist. Open CMakeLists.txt in the same Simulation directory, and add the files to the list:
   <pre><code>target_sources(Server
     PRIVATE
         (other files...)
@@ -24,12 +26,14 @@
 )</pre></code>
 
   <h2>2. Adding logic to the new system</h2>
-  <p>Starting in TestSystem.h, we're going to rename the class and rip out the stuff we don't need. We're also going to add a <code>Timer</code>, which we'll use in the .cpp:
+  <p>Starting in TestSystem.h, we're going to rename the class and rip out the stuff we don't need. We'll keep the <code>World</code> dependency since we need it to get the entity data and modify the tile map, and the <code>Timer</code> so we can make sure our logic only runs once every few seconds:
   <pre><code>#pragma once
 
 #include "Timer.h"
 
-namespace AM::Server
+namespace AM
+{
+namespace Server
 {
 
 // Forward declaration
@@ -45,39 +49,41 @@ public:
 private:
     World&amp; world;
 
-    Timer timer;
+    Timer updateTimer;
 };
 
-} // End namespace AM::Server</pre></code>
+} // End namespace Server
+} // End namespace AM</pre></code>
 
-  <p>In TestSystem.cpp, we're going to set everything up except for <code>runCode()</code>, then I'll explain what's going on:
+  <p>In TestSystem.cpp, we're going to set everything up, then I'll explain what's going on:
   <pre><code>#include "TestSystem.h"
 #include "World.h"
-#include "Position.h"
 
-namespace AM::Server
+namespace AM
+{
+namespace Server
 {
 
 TestSystem::TestSystem(World&amp; inWorld)
 : world{inWorld}
-, timer{}
+, updateTimer{}
 {
-    timer.updateSavedTime();
 }
 
 void TestSystem::runCode()
 {
 }
 
-} // End namespace AM::Server</pre></code>
+} // End namespace Server
+} // End namespace AM</pre></code>
 
-  <p>At the top are our includes. Along with the new class, we've included our <code>World</code> dependency (we'll talk more about dependencies later), and a <code>Position</code> component that we're going to use.
-  <br>Below the includes, we have our function, and a constructor that initializes the timer.
-  <p>Inside the function, we're going to do something fun: every 5 seconds, we're going to iterate through every entity, determine what tile they're standing on, and replace that tile's floor sprite. Here's what it looks like, go ahead and take some time to get familiar with it:
+  <p>At the top, we've included the headers for our <code>TestSystem</code> and our <code>World</code> dependency (we'll talk more about dependencies later).
+  <br>Below the includes, we've replaced all mention of <code>TeleportSystem</code> with <code>TestSystem</code>, renamed our function to <code>runCode()</code>, and removed the contents of the function.
+  <p>Now, let's talk about what this system is actually going to do. Every 5 seconds, it's going to iterate through every entity, determine which tile they're standing on, and replace that tile's floor sprite. Here's what that looks like, take some time to get familiar with it:
   <pre><code>void TestSystem::runCode()
 {
     // If the timer has been running for 5 seconds.
-    if (timer.getDeltaSeconds(false) &gt;= 5) {
+    if (updateTimer.getTime() &gt;= 5) {
         // Iterate through every entity that has a Position component.
         auto view{world.registry.view&lt;Position&gt;()};
         for (entt::entity entity : view) {
@@ -96,20 +102,24 @@ void TestSystem::runCode()
         }
 
         // Reset the timer.
-        timer.updateSavedTime();
+        updateTimer.reset();
     }
 }</pre></code>
 
-  <p>From this example, you can infer some things that you might not have known about the engine:
+  <p>This is a cool example because we get to use both the entity registry and the tile map (we use the registry to get all entities that have a <code>Position</code> component, then we use their position to update the tile map). These two classes are the main ways that we can interact with the world, and will certainly be useful in any future systems that you build!
+  <p>If you want to learn more, you can look up TileMapBase.h, <a href="https://github.com/skypjack/entt/wiki/Crash-Course:-entity-component-system#views">read the entt documentation</a>, or look around at how our other systems use these classes.
+
+  <p>From this example, we can learn some things about the engine:
   <ol>
-    <li>The map is tile-based.
+    <li>The world map is tile-based.
     <li>Each tile contains multiple sprites, organized into layers.
-    <li>Sprites are identified by their numeric ID (they actually also have string IDs and display names that we sometimes use).
+    <li>Layer 0 typically contains the floor sprite, (since it's the lowest layer).
+    <li>Sprites have a numeric ID (they also have string IDs that we more commonly use, but that will be covered by a different tutorial).
     <li>Calling <code>setTileSpriteLayer()</code> was enough to get update messages sent to the clients (we didn't need to explicitly send a map update to everyone). This is the case for tile map updates and entity movement, but other things may require your system to send its own messages. We'll cover that in a later tutorial.
   </ol>
 
   <h2>3. Adding the system to an extension class</h2>
-  <p>If you recall, the "module extension classes" are what let us tell the engine to run our code. Let's add our new system to an extension class. Open SimulationExtension.h (still in the Source/Server/Simulation directory).
+  <p>We've built our new system, but it currently isn't being called anywhere. If you recall, the "module extension classes" are what let us tell the engine to run our code. Let's add our new system to the extension class. Open SimulationExtension.h (still in the Source/Server/Simulation directory).
   <p>At the top of this file, you'll see a place where we include the existing systems. Add our system to the list:
   <pre><code>#include "ISimulationExtension.h"
 #include "SimulationExDependencies.h"
@@ -136,7 +146,7 @@ void SimulationExtension::beforeAll() {
 
   <p>Adding <code>testSystem.runCode()</code> to <code>beforeAll()</code> means that it will now be called once per Simulation tick.
   <p>Note that we're passing <code>deps.world</code> to <code>TestSystem</code> here. The <code>World</code> class is just one of the dependencies that the engine provides us with. To see what else is available, you can look at SimulationExDependencies.h (be sure to look at the Server version, Client also has a SimulationExDependencies).
-  <br>Each module has an ExDependencies class like this. When you're thinking up how to implement something, check out these headers to see what tools are at your disposal!
+  <br>Each module has an ExDependencies class like this. When you're thinking up how to implement something, check out these headers and drill down deeper to see what tools are at your disposal!
 
   <h2>4. Running our new system</h2>
   <p>Now, we just build the project and run it as before (launch the server, then the client). If all goes well, you should see a sprite appearing under your character every 5 seconds!
