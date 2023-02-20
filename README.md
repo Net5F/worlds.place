@@ -12,6 +12,12 @@ We use Apache as our web server.
 ### Setup
 https://ubuntu.com/tutorials/install-and-configure-apache#2-installing-apache
 
+Run these commands to install the required modules:
+```
+a2enmod headers
+a2enmod expires
+```
+
 By default, config is in `/etc/apache2/sites-enabled/000-default.conf` and `/etc/apache2/sites-enabled/000-default-le-ssl.conf`. `000-default` is for http, `000-default-le-ssl` is for https. Make sure to update both.
 
 Modified config fields:
@@ -19,11 +25,25 @@ Modified config fields:
 ServerAdmin the.net.persists@gmail.com
 ServerName worlds.place
 ServerAlias www.worlds.place
+
+# Set error pages.
 ErrorDocument 404 /404.html
 ErrorDocument 500 /50x.html
 ErrorDocument 502 /50x.html
 ErrorDocument 503 /50x.html
 ErrorDocument 504 /50x.html
+
+# Set caching rules.
+<filesMatch "\.(ico|gif|jpg|png)$">
+  ExpiresActive On
+  ExpiresDefault "access plus 1 day"
+  Header append Cache-Control "public"
+</filesMatch>
+<filesMatch "\.(css|js)$">
+  ExpiresActive On
+  ExpiresDefault "access plus 1 day"
+  Header append Cache-Control "public"
+</filesMatch>
 ```
 `service apache2 restart`
 ### Site Deployment
