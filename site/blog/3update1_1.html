@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<title>Amalgam Engine 1.1 Release Notes</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="stylesheet" href="/style.css">
+
+<script src="/components/header.js"></script>
+<header-component selected="blog"></header-component>
+
+<main class="textHeavyPage">
+  <h1>Amalgam Engine 1.1 Release Notes</h1>
+
+  <iframe width="560" height="315" src="https://www.youtube.com/embed/2bv3BXQKNlM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+  <h2><u>Motivation</u></h2>
+  <p>This update was focused around improving the build mode experience. I'm really happy with how it turned out, we now have a powerful "Sprite Set" abstraction that lets project devs group sprites into a higher-level context (Floors, Floor Coverings, Walls, and Objects). With that context, the engine is now able to automatically provide a ton of functionality that the project dev would otherwise have to implement themselves. 
+  <p>These build mode improvements set us up perfectly for the next feature: Imagine using build mode to place an object, writing its onUse behavior in a lua script, then updating it live. This will soon be possible, with Dynamic Objects!
+
+  <h2><u>Release Notes</u></h2>
+  <h3>New Sprite Editor Workflow</h3>
+  <p>To import your art for use in The Amalgam Engine:
+  <ol>
+    <li>Open the Sprite Editor and import your sprite sheet.
+    <li>Draw bounding boxes on your sprites.
+    <li>Add your sprites to a sprite set.
+  </ol>
+
+  <h3>Improved Build Mode</h3>
+  <p>Build mode has new and improved tools:
+  <ol>
+    <li>An easy to use "Remove" tool.
+    <li>A context-aware "Wall" tool.
+    <li>Simple tools for Floors, Floor Coverings, and Objects.
+  </ol>
+
+  <h3>Behind-the-scenes Improvements</h3>
+  <ol>
+    <li>(AUI) Refactored the Image widget to be really easy to use.
+    <li>(AUI) Added nine slice support to Image widget.
+    <li>(AUI) Big refactor to support widget clipping.
+    <li>(AUI) Added smooth-scrolling list widget.
+    <li>(AUI) Added collapsible container widget.
+    <li>Refactored SpriteDataBase and SpriteData to support sprite sets.
+    <li>Updated SpriteData.json format to support sprite sets.
+    <li>Refactored TileMapBase and TileMap to support sprite sets.
+    <li>Improved TileMapBase's interface, taking advantage of sprite sets (it's now really nice to use).
+    <li>Refactored tile map update messages to be closer to TileMapBase's interface.
+    <li>Added Ray concept and Ray/BoundingBox intersection.
+    <li>Added WorldObjectLocator, which lets the UI cast a ray from the mouse and get the intersected world objects (tile layers, entities).
+  </ol>
+
+  <p>These changes are now live in The World of Repose. Feel free to walk to the build area and play around with them.
+
+  <p>Net_
+</main>
+</html>

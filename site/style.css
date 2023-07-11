@@ -199,25 +199,29 @@ main {
 
 a { color: var(--linkcolor); }
 
-p { margin: 0 0 15px 0; }
-
 h1 { margin: 0 0 10px 0; }
 h2 { margin: 25px 0 0; }
+h2 > u {
+  text-decoration:none;
+  border-bottom: 1px solid;
+}
 h3 { margin: 10px 0 5px 0; }
+ol + h3, ul + h3, p + h3 { margin: 20px 0 5px 0; }
 
-ol, ul {
-  margin: 0 0 15px;
-}
-ol {
-  padding: 0 0 0 30px;
-}
+ol, ul { margin: 0 0 15px; }
+p + ol, p + ul { margin: 10px 0 0; }
+ol { padding: 0 0 0 30px; }
 ul {
   padding: 0 0 0 25px;
   list-style: square;
 }
-ul ul {
-  margin: 0;
-}
+ul ul { margin: 0; }
+
+p { margin: 15px 0 0 0; }
+h2 + p { margin: 0 0 0 0; }
+h3 + p { margin: 0 0 0 0; }
+h2:has(u) + p { margin: 8px 0 0 0; }
+ol + p, ul + p { margin: 15px 0 0 0; }
 
 pre > code {
   display: block;
