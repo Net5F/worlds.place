@@ -34,6 +34,15 @@ body {
   margin: 0 0 10px 0;
 }
 
+.homeAttractTextContainer {
+  margin: 0 0 35px 0;
+  text-align: center;
+}
+
+.homeAttractTextContainer p {
+  margin: 0 0 15px 0;
+}
+
 .homeColumnContainer {
   display: flex;
   flex-wrap: wrap;
