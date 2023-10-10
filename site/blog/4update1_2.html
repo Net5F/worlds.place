@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<title>Amalgam Engine 1.2 Release Notes</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="stylesheet" href="/style.css">
+
+<script src="/components/header.js"></script>
+<header-component selected="blog"></header-component>
+
+<main class="textHeavyPage">
+  <h1>Amalgam Engine 1.2 Release Notes</h1>
+
+  <div class="youtube-container">
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/S2peP9_VPDI?si=D6zFbCWuVXQEtRrY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+  </div>
+
+  <h2><u>Motivation</u></h2>
+  <p>This update brings a major new feature to the engine: scriptable entities! These can be used to make dynamic objects and NPCs through the following workflow: 
+  <ol>
+    <li>Open build mode and choose the new "Entity" tool.
+    <li>Choose an entity template and place it in the world.
+    <li>Customize its name and sprite, if desired.
+    <li>Customize its "initialization script" (init script). 
+  </ol>
+  <p>Init scripts are Lua scripts that get ran on the entity, and allow you to add Interactions (things that happen when you click on the entity, e.g. "Examine") and Behaviors (things that happen automatically, e.g. AI).
+  <p>With this, we now have NPCs and interactables. See the video above for more info, and look forward to the next update: items and inventory!
+
+  <h2><u>Release Notes</u></h2>
+  <h3>Live Lua scripting</h3>
+  <p>Non-client entities now can accept an "initialization script": a Lua script that gets ran when they're constructed.
+  <p>The init script interface features Interactions (things that happen when you click on the entity, e.g. "Examine") and Behaviors (things that happen automatically, e.g. AI).
+  <p>Lua bindings are mostly left up to the project, but should follow the concepts of "Interactions" and "Behaviors".
+
+  <h3>Interactions</h3>
+  <p>(See above for details.)
+  <p>In Repose, the sunflowers have been rebuilt using entities, and now feature a "Replant" interaction. When a sunflower dies, you can left-click on it to replant it as a sapling (must be in range).
+
+  <h3>Behaviors (AI, etc)</h3>
+  <p>(See above for details.)
+  <p>In Repose's build area, you can now use the Entity build mode tool to place an entity and assign it an init script. Currently, the Lua interface only features a test function "addRandomWalkerAIBehavior(3)".
+
+  <h3>Automatic Entity Component Networking</h3>
+  <p>In C++, there are now two lists of component types: ReplicatedComponentTypes, and ObservedComponentTypes.
+  <p>Adding types to these lists cause them to be automatically networked with clients, meaning it's now trivially easy to add new components. There's a slight performance penalty to using this path, so performance-sensitive systems such as movement will still handle their components manually.
+
+  <h3>Behind-the-scenes Improvements</h3>
+  <ol>
+    <li>Refactored movement for another large performance boost. We now can easily support 200 entities in 1 area, moving at 4 inputs/second. We can probably go even higher, I haven't tried yet.
+    <li>Refactored entity handling to support non-client entities (this update is our first time dealing with any entities that don't belong to a client).
+    <li>Added messages to handle changing an entity's name and sprite, with project hooks for allowing/rejecting the change. This lets a project's build mode send already-hooked-up messages for the entity data that it's likely to support changing in the UI.
+  </ol>
+
+  <p>These changes are now live in The World of Repose. Feel free to walk to the sunflower garden or the build area and play around with them.
+
+  <p>Net_
+</main>
+</html>
