@@ -12,7 +12,7 @@
   <h1>Enabling Build Mode Everywhere</h1>
 
   <p>Now that we have the world running, let's make our first modification.
-  <p>Normally, in Repose, you can only open the build mode when you're within the designated "build mode area". However, there's a flag that controls this behavior which we can change fairly easily.
+  <p>Normally, in Repose, you can only open the build mode when you're within one of the designated "build mode areas". However, there's a flag that controls this behavior which we can change fairly easily.
 
   <h2>1. Setting the Solution Explorer to Folder View</h2>
   <p><em>Skip this step if you're on Linux.</em>
@@ -20,12 +20,12 @@
   <p>To do so: find the button with a purple logo at the top of the Solution Explorer (to the right of the house icon). Click it, then click Folder View.
 
   <h2>2. Modifying SharedConfig.h</h2>
-  <p>Now that we can easily see our file tree, we want to open Repose/Source/ConfigOverrides/Override/SharedConfig.h.
-  <p>At the bottom of this header is <code>RESTRICT_TILE_UPDATES</code>. Change <code>true</code> to <code>false</code> and save the file (VS: Ctrl+S or "File" &rarr; "Save All"). Then, build the project again (VS: "Build" &rarr; "Build All").
+  <p>Now that we can easily see our file tree, we want to open Repose/Source/EngineSupplement/Shared/Config/Public/SharedConfig.h.
+  <p>At the bottom of this header is <code>RESTRICT_WORLD_CHANGES</code>. Change <code>true</code> to <code>false</code> and save the file (VS: Ctrl+S or "File" &rarr; "Save All"). Then, build the project again (VS: "Build" &rarr; "Build All").
   <p>Now when you run your client/server, you should be able to press 'b' to open the build mode anywhere! Changing this flag has actually done two things:
   <ol>
     <li>Disabled the client-side "are you in the build area" check when you press the 'b' key.
-    <li>Disabled the server-side "is the client in the build area" check when it receives a tile update message.
+    <li>Disabled the server-side "is the client in the build area" check when it receives an update message.
   </ol>
 </main>
 </html>

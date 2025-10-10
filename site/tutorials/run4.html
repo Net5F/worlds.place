@@ -19,7 +19,7 @@
   </ol>
   <p>If you choose to host it on a cloud instance, you likely know what you're doing. Just copy the server package over and, if on Linux, install SDL2. Then, you can share the IP address and others will be able to connect.
   <p>If you choose to host it on your own machine, you'll likely have to forward a port in your router settings. This is a common process when self-hosting a game server, so just google "port forward guide".
-  <p>To find which port you need to forward, look for the SERVER_PORT variable in Repose/Source/ConfigOverrides/Override/ServerConfig.h (default: 41499).
+  <p>To find which port you need to forward, look for the SERVER_PORT variable in Repose/Source/EngineSupplement/Server/Config/Public/Config.h (default: 41499).
 
   <h2>2. Changing the client's target IP</h2>
   <p>Our client needs to know the server's IP address. By default, it's set to the local host (that's why it works when you're running the server locally).

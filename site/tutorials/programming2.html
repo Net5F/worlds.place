@@ -12,7 +12,7 @@
   <h1>Adding a Simulation system</h1>
 
   <p>Don't worry if you don't fully understand all the terms from the previous tutorial, you'll gain familiarity as we get more hands-on.
-  <br>In this tutorial, we're going to add a system to the Server's Simulation. Our system is going to be pretty simple: every few seconds, it's going to replace the floor sprite that each entity is standing on with a sprite of our choosing. This will let us dip our toes into modifying the tile map, and interacting with the entity data!
+  <br>In this tutorial, we're going to add a system to the Server's Simulation. Our system is going to be pretty simple: every few seconds, it's going to replace the terrain graphic that each entity is standing on with a graphic of our choosing. This will let us dip our toes into modifying the tile map, and interacting with the entity data!
 
   <h2>1. Creating the new system's files</h2>
   <p>The easiest way to start a new system is to copy an existing one. In our project, we can see all the Server Simulation systems by looking in the Source/Server/Simulation directory. Take this opportunity to look through the existing systems and see what they all do.
@@ -81,7 +81,7 @@ void TestSystem::runCode()
 
   <p>At the top, we've included the headers for our <code>TestSystem</code> and our <code>World</code> dependency (we'll talk more about dependencies later).
   <br>Below the includes, we've replaced all mention of <code>TeleportSystem</code> with <code>TestSystem</code>, renamed our function to <code>runCode()</code>, and removed the contents of the function.
-  <p>Now, let's talk about what this system is actually going to do. Every 5 seconds, it's going to iterate through every entity, determine which tile they're standing on, and replace that tile's floor sprite. Here's what that looks like, take some time to get familiar with it:
+  <p>Now, let's talk about what this system is actually going to do. Every 5 seconds, it's going to iterate through every entity, determine which tile they're standing on, and replace that tile's terrain graphic. Here's what that looks like, take some time to get familiar with it:
   <pre><code>void TestSystem::runCode()
 {
     // If the timer has been running for 5 seconds.
@@ -92,15 +92,11 @@ void TestSystem::runCode()
             // Get this entity's position component.
             Position&amp; position{view.get&lt;Position&gt;(entity)};
 
-            // Replace the floor sprite (layer 0) of the tile that the entity 
-	    // is standing on.
-	    // Note: We need a sprite to use, so I randomly chose the sprite with 
-	    //       ID == 1.
-            TilePosition tilePosition{position.asTilePosition()};
-            std::size_t layerIndex{0};
-            int spriteNumericID{1};
-            world.tileMap.setTileSpriteLayer(tilePosition.x, tilePosition.y,
-                                             layerIndex, spriteNumericID);
+	    // Replace the terrain layer of the tile that the entity is standing on.
+	    // Note: We need a graphic set to use, so I randomly chose the set with 
+	    //       ID == 0.
+            TilePosition tilePosition(position);
+            world.tileMap.addTerrain(tilePosition, 0, Terrain::Height::Flat);
         }
 
         // Reset the timer.
@@ -111,13 +107,13 @@ void TestSystem::runCode()
   <p>This is a cool example because we get to use both the entity registry and the tile map (we use the registry to get all entities that have a <code>Position</code> component, then we use their position to update the tile map). These two classes are the main ways that we can interact with the world, and will certainly be useful in any future systems that you build!
   <p>If you want to learn more, you can look up TileMapBase.h, <a href="https://github.com/skypjack/entt/wiki/Crash-Course:-entity-component-system#views">read the entt documentation</a>, or look around at how our other systems use these classes.
 
-  <p>From this example, we can learn some things about the engine:
+  <p>From this example, we can observe some things about the engine:
   <ol>
     <li>The world map is tile-based.
     <li>Each tile contains multiple sprites, organized into layers.
-    <li>Layer 0 typically contains the floor sprite, (since it's the lowest layer).
-    <li>Sprites have a numeric ID (they also have string IDs that we more commonly use, but that will be covered by a different tutorial).
-    <li>Calling <code>setTileSpriteLayer()</code> was enough to get update messages sent to the clients (we didn't need to explicitly send a map update to everyone). This is the case for tile map updates and entity movement, but other things may require your system to send its own messages. We'll cover that in a later tutorial.
+    <li>"Graphic sets" are used to control each tile layer's displayed sprite.
+    <li>Graphic sets have a numeric ID (they also have string IDs that we more commonly use, but that will be covered by a different tutorial).
+    <li>Calling <code>addTerrain()</code> was enough to get update messages sent to the clients (we didn't need to explicitly send a map update to everyone). This is the case for tile map updates and entity movement, but other things may require your system to send its own messages. We'll cover that in a later tutorial.
   </ol>
 
   <h2>3. Adding the system to an extension class</h2>
